@@ -21,7 +21,6 @@ app.use(
   }),
 );
 app.use(cookieParser());
-app.use(errorHandler);
 
 app.get("/", (req, res, next) => {
   res.status(OK).json({
@@ -35,3 +34,4 @@ app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT} in ${NODE_ENV} enviroment`);
   await connectToDatabase();
 });
+app.use(errorHandler);
