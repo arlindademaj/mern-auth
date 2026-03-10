@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import verificationCodeType from "../constants/verificationCodeType";
+import VerificationCodeType from "../constants/verificationCodeType";
 
 export interface verificationCodeDocument extends mongoose.Document {
   userId: mongoose.Types.ObjectId;
-  type: verificationCodeType;
+  type: VerificationCodeType;
   expiresAt: Date;
   createdAt: Date;
 }
@@ -30,9 +30,9 @@ const verifactionCodeSchema = new mongoose.Schema<verificationCodeDocument>({
   },
 });
 
-const verificationCodeModel = mongoose.model<verificationCodeDocument>(
+const VerificationCodeModel = mongoose.model<verificationCodeDocument>(
   "VerificationCode",
   verifactionCodeSchema,
   "verification_codes",
 );
-export default verificationCodeModel;
+export default VerificationCodeModel;
