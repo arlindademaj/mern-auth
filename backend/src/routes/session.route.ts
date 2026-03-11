@@ -1,13 +1,14 @@
 import { Router } from "express";
 import {
   deleteSessionHandler,
-  getSessionHandler,
+  getSessionsHandler,
 } from "../controllers/session.controller";
+import authenticate from "../middleware/authenticate";
 
 const sessionRoutes = Router();
 
 // prefix: /sessions
-sessionRoutes.get("/", getSessionHandler);
-sessionRoutes.delete("/:id", deleteSessionHandler);
+sessionRoutes.get("/", authenticate, getSessionsHandler);
+sessionRoutes.delete("/:id", authenticate, deleteSessionHandler);
 
 export default sessionRoutes;
