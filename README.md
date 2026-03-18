@@ -1,23 +1,26 @@
 # MERN Auth Template (JWT)
 
-Starter MERN stack app using **JWT**, TypeScript, Express, MongoDB, React, Chakra UI, React Query, and **Resend** for sending emails. JWTs are stored in secure HTTP-only cookies. Includes a Postman collection for API testing. Features include register, login, logout, profile, account verification, password reset, sending emails, session management, frontend forms, and custom React hooks for auth and app state.
+Starter MERN stack app with **JWT**, TypeScript, Express, MongoDB, React, Chakra UI, React Query, and **Resend** for emails. JWTs stored in secure HTTP-only cookies. Includes Postman collection for testing. Features: register, login, logout, profile, account verification, password reset, session management, frontend forms, and custom React hooks.
 
 ## Features
 
-- Authentication: register, login, logout, profile
-- Email: account verification and password reset
-- Sessions: get and remove sessions
-- Frontend: login, register, reset password forms
-- Custom React hooks to manage auth state and app data
+- Auth: register, login, logout, profile
+- Email: account verification & password reset
+- Sessions: get/remove sessions
+- Frontend: login/register/reset password forms
+- Custom React hooks for auth & app state
 
 ## API Architecture
 
-The API is built using routes, controllers, services, and models. Routes handle incoming requests and forward them to controllers. Controllers validate requests, call the appropriate service, and send responses. Services handle business logic, interact with the database and external services, and may call other services. Models define database schema and utilities. For simple GET or DELETE requests without business logic, controllers may interact directly with models.
+- **Routes:** handle requests, forward to controllers
+- **Controllers:** validate, call services, send responses
+- **Services:** business logic, DB & external API calls
+- **Models:** DB schema & utilities
+- Error handling via `errorCatch()` and custom middleware
 
-## Error Handling
+## Auth Flow
 
-Controllers are wrapped with `errorCatch()` to ensure errors are caught and passed to the custom error handler middleware, which handles all errors occurring in the application.
-
-## Authentication Flow
-
-When a user logs in, the server generates two JWTs: AccessToken (short-lived, 15 minutes) and RefreshToken (long-lived, 30 days), both sent in secure HTTP-only cookies. The AccessToken is passed on every request to authenticate the user, while the RefreshToken is sent only to the `/refresh` endpoint to generate a new AccessToken. The frontend detects 401 AccessTokenExpired errors, requests a new AccessToken via `/refresh`, and retries the original request. If refresh fails, the user is logged out and redirected to the login page.
+- On login, server generates **AccessToken** (15 min) & **RefreshToken** (30 days) in HTTP-only cookies
+- AccessToken sent on requests for authentication
+- RefreshToken used at `/refresh` to get a new AccessToken
+- Frontend retries requests on AccessToken expiration, logs out if refresh fails
